@@ -31,3 +31,10 @@ export const getComandas = () => {
   console.log('📋 Front-end: "Garçom, quais são os pedidos em aberto?"');
   return api.get('/comandas');
 };
+
+// Função para ATUALIZAR o status de uma comanda
+export const updateComandaStatus = (id, novoStatus) => {
+  console.log(`Front-end: "Garçom, mudar pedido #${id} para ${novoStatus}!"`);
+  // Faz o PATCH para /api/comandas/:id, enviando o novo status
+  return api.patch(`/comandas/${id}`, { status: novoStatus });
+};

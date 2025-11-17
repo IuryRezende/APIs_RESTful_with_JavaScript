@@ -128,11 +128,18 @@ npm test
 - Validação de dados e erro 404
 - 10 testes no total (3 novos)
 
-### 🔜 Passo 3.1: Front-end (Botões de Status) - Próxima Etapa
-- Adicionar botões para mudar status no painel
-- Integrar com endpoint PATCH
-- Atualização visual ao mudar status
-- Diferentes cores para diferentes status
+### ✅ Passo 3.1: Front-end (Botões de Status) - Completo!
+- Função updateComandaStatus no serviço de API
+- Handler handleMudarStatus no componente PainelCozinha
+- Botões condicionais baseados no status atual
+- Atualização instantânea da UI (sem novo GET)
+- Estilos dinâmicos com cores por status
+- Renderização condicional (pendente → Em Preparo → Concluído)
+
+### 🔴 Passo 4: DELETE (Remover Pedidos) - Próxima Etapa
+- Endpoint DELETE /api/comandas/:id
+- Botão para remover pedido do painel
+- Confirmação antes de deletar
 
 ## 🔗 Fluxo de Comunicação
 

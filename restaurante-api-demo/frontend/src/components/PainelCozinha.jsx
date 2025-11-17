@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getComandas } from '../services/api';
+import { getComandas, updateComandaStatus } from '../services/api';
 
 // Componente que exibe todos os pedidos feitos (Painel da Cozinha)
 // Recebe a prop 'refreshTrigger' para saber quando atualizar a lista
@@ -32,6 +32,28 @@ export function PainelCozinha({ refreshTrigger }) {
 
     fetchComandas();
   }, [refreshTrigger]); // <-- O gatilho de atualização!
+
+  // Função para lidar com a mudança de status
+  const handleMudarStatus = async (id, novoStatus) => {
+    try {
+      // 1. Chama a API para atualizar o back-end
+      const response = await updateComandaStatus(id, novoStatus);
+      
+      // 2. Atualiza o estado local (UI) com os dados da resposta
+      // Isso evita um novo 'GET' e atualiza a tela instantaneamente
+      setComandas((comandasAnteriores) =>
+        comandasAnteriores.map((comanda) =>
+          comanda.id === id ? response.data : comanda
+        )
+      );
+      
+      console.log(`Status do Pedido #${id} atualizado para ${novoStatus}`);
+    
+    } catch (err) {
+      console.error('Erro ao atualizar status:', err);
+      alert('Falha ao atualizar o status do pedido.');
+    }
+  };
 
   // --- Renderização ---
   
@@ -72,7 +94,7 @@ export function PainelCozinha({ refreshTrigger }) {
               <h3>Pedido #{comanda.id}</h3>
               <p className="cozinha-mesa">🪑 Mesa: {comanda.mesa}</p>
               <p className="cozinha-status">
-                Status: <span className="status-pendente">{comanda.status}</span>
+                Status: <span className={`status status-${comanda.status.toLowerCase().replace(' ', '-')}`}>{comanda.status}</span>
               </p>
               <p className="cozinha-itens">
                 📋 Itens: {comanda.itens.length} {comanda.itens.length === 1 ? 'item' : 'itens'}
@@ -83,6 +105,35 @@ export function PainelCozinha({ refreshTrigger }) {
               <p className="cozinha-data">
                 <small>🕐 Recebido: {new Date(comanda.dataPedido).toLocaleString('pt-BR')}</small>
               </p>
+              
+              {/* --- NOVOS BOTÕES DE AÇÃO --- */}
+              <div className="botoes-acao">
+                {/* Botão "Em Preparo" (só aparece se status for "pendente") */}
+                {comanda.status === 'pendente' && (
+                  <button 
+                    className="btn-em-preparo"
+                    onClick={() => handleMudarStatus(comanda.id, 'Em Preparo')}
+                  >
+                    Marcar "Em Preparo"
+                  </button>
+                )}
+                
+                {/* Botão "Concluído" (só aparece se status for "Em Preparo") */}
+                {comanda.status === 'Em Preparo' && (
+                  <button 
+                    className="btn-concluido"
+                    onClick={() => handleMudarStatus(comanda.id, 'Concluído')}
+                  >
+                    Marcar "Concluído"
+                  </button>
+                )}
+                
+                {/* Mensagem de Concluído (só aparece se status for "Concluído") */}
+                {comanda.status === 'Concluído' && (
+                  <p className="status-concluido-msg">Pedido Finalizado!</p>
+                )}
+              </div>
+              {/* --- FIM DOS BOTÕES --- */}
             </div>
           ))}
         </div>

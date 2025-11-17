@@ -404,6 +404,91 @@ body {
   border-top: 1px solid #4a5f7f;
 }
 
+/* --- Estilos do Painel da Cozinha (Novos Status) --- */
+
+/* Classes de status dinâmicas */
+.status {
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.status-pendente {
+  background-color: rgba(243, 156, 18, 0.3);
+  color: #f39c12;
+  border: 1px solid #f39c12;
+}
+
+.status-em-preparo {
+  background-color: rgba(52, 152, 219, 0.3);
+  color: #3498db;
+  border: 1px solid #3498db;
+}
+
+.status-concluído {
+  background-color: rgba(46, 204, 113, 0.3);
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+.status-concluido-msg {
+  color: #2ecc71;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1em;
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
+
+.botoes-acao {
+  margin-top: 1.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  padding-top: 1em;
+  border-top: 1px solid #4a5f7f;
+}
+
+.botoes-acao button {
+  border: none;
+  padding: 0.8em;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95em;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.botoes-acao button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.botoes-acao button:active {
+  transform: translateY(0);
+}
+
+.btn-em-preparo {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+}
+
+.btn-em-preparo:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
+}
+
+.btn-concluido {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: white;
+}
+
+.btn-concluido:hover {
+  background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+}
+
 /* Responsividade do Painel */
 @media (max-width: 768px) {
   .cozinha-secao {

@@ -73,6 +73,19 @@ O front-end se comunica com o back-end através do arquivo `src/services/api.js`
 - ✅ Grid responsivo de pedidos
 - ✅ Scroll customizado para lista de pedidos
 
+### Passo 3.1 - Botões de Status (Novo!)
+- ✅ Função updateComandaStatus integrada com endpoint PATCH
+- ✅ Botões de ação condicionais:
+  - "Marcar 'Em Preparo'" - Visível quando status = "pendente"
+  - "Marcar 'Concluído'" - Visível quando status = "Em Preparo"
+  - "Pedido Finalizado!" - Mensagem quando status = "Concluído"
+- ✅ Atualização instantânea do estado local (sem novo GET)
+- ✅ Feedback visual com cores dinâmicas:
+  - Pendente = Amarelo/Laranja
+  - Em Preparo = Azul
+  - Concluído = Verde
+- ✅ Cada pedido pode ter status independente
+
 ## 🔧 Tecnologias
 
 - **React** - Biblioteca UI
