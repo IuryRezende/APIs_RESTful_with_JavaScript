@@ -30,13 +30,33 @@ const createComanda = (req, res) => {
 
     // total = total * 1.10;
 
+    if(!itens || itens.length === 0){
+      res.status(400).json({
+        sucesso: false,
+        mensagem: `Não foi possivel criar comanda pois itens = ${itens.length}`
+      })
+    }
+
+    if(!mesa || mesa === ""){
+      res.status(400).json({
+        sucesso: false,
+        mensagem: `Não foi possivel criar comanda, mesa inexistente`
+      })
+    }
+
+    if(total <= 0){
+      res.status(400).json({
+        sucesso: false,
+        mensagem: `Não foi possível criar comanda, valor total inválido`
+      })
+    }
     // Cria um novo objeto de comanda
     const novaComanda = {
       id: comandas.length + 1, // ID automático baseado no tamanho do array
       mesa,
       itens,
       total,
-      status: 'concluido',
+      status: "pendente",
       dataPedido: new Date().toISOString()
     };
 

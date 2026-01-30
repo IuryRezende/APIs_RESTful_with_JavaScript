@@ -11,11 +11,11 @@ function App() {
   // Estado para erros
   const [error, setError] = useState(null);
   // Estado para a comanda (carrinho de pedidos)
-  const [comanda, setComanda] = useState([
-    { nome: "Energético", preco: 0 }
-  ]);
+  const [comanda, setComanda] = useState([]);
   // Estado para controlar atualização do Painel da Cozinha (gatilho)
   const [refreshPedidos, setRefreshPedidos] = useState(0);
+
+  const [numeroMesa, setNumeroMesa] = useState(1);
 
   // useEffect: Roda quando o componente "monta" (inicia)
   useEffect(() => {
@@ -53,18 +53,17 @@ function App() {
 
   // Função para calcular o total da comanda
   const calcularTotalComanda = () => {
-    return comanda.reduce((total, item) => total + item.preco + (total*0.10), 0);
+    return comanda.reduce((total, item) => total + item.preco, 0);
   };
 
   // Função para ENVIAR o pedido para o back-end
   const handleFazerPedido = async () => {
-    // if (comanda.length === 0) {
-    //   alert('Sua comanda está vazia!');
-    //   return;
-    // }
-
+    if (comanda.length === 0) {
+      alert('Sua comanda está vazia!');
+      return;
+    }
     const dadosDoPedido = {
-      mesa: 'Mesa 5', // Podemos deixar fixo por enquanto
+      mesa: `Mesa ${numeroMesa}`, // Podemos deixar fixo por enquanto
       itens: comanda.map(item => item.id), // Envia só os IDs, como no back-end
       total: calcularTotalComanda(),
     };
@@ -72,9 +71,10 @@ function App() {
     try {
       const response = await createComanda(dadosDoPedido);
       console.log('✅ Pedido enviado com sucesso!', response.data);
-      alert(`✅ Pedido #${response.data.dados.id} está chegando na casa de João!`);
-      setComanda([]); // Limpa o carrinho
+      alert(`✅ Pedido #${response.data.dados.id} enviado para a cozinha!`);
       
+      setComanda([]); // Limpa o carrinho
+      setNumeroMesa((numMesa) => numMesa + 1);
       // ATUALIZA A LISTA DE PEDIDOS NO PAINEL DA COZINHA
       setRefreshPedidos(count => count + 1); // Incrementa o gatilho
       
@@ -121,8 +121,8 @@ function App() {
             <p className="preco">R$ {item.preco.toFixed(2)}</p>
             {/* Botão para adicionar item à comanda */}
             <button 
-            // onClick={() => handleAddItemComanda(item)} 
-            style={{color: 'red'}}>
+            onClick={() => handleAddItemComanda(item)} 
+            style={{color: 'white'}}>
               ➕ Adicionar ao Pedido
             </button>
           </div>
@@ -154,7 +154,7 @@ function App() {
         <button
           className="btn-fazer-pedido"
           onClick={handleFazerPedido}
-          // disabled={comanda.length === 0}
+          disabled={comanda.length === 0}
         >
           🍽️ Fazer Pedido
         </button>
