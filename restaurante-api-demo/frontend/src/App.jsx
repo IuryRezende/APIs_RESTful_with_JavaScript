@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { listarCardapio } from './services/api'; // Importa nossas funções da API
 import { PainelCozinha } from './components/PainelCozinha'; // Importa o Painel da Cozinha
 import './App.css'; // Vite inclui este CSS básico
-import { listarCardapio } from '../../backend/src/controllers/cardapio.controller';
 
 const quantidade = document.getElementsByClassName("quantNumber");
 
@@ -131,21 +130,8 @@ function App() {
             <p className="preco">R$ {item.preco}</p>
             {/* Botão para adicionar item à comanda */}
             
-            <div className='divAddQuantPedidos'  >
-              <button style={{backgroundColor: "red"}} 
-              className='minus-btn'
-              onClick={() => subQuantidade()}
-              >
-                ➖
-              </button>
-              <p class="quantNumber" style={{backgroundColor: 'black'}}>0</p>
-              <button style ={{backgroundColor: 'green'}}
-              className='plus-btn'
-              onClick={() => addQuantidade()}
-              >
-                ➕
-              </button>
-            </div>
+            
+    
               <button className='adicionar-pedido'
               onClick={() => handleAddItemComanda(item)} 
               style={{color: 'white'}}>
