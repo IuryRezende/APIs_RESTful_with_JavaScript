@@ -17,7 +17,7 @@ router.get('/cardapio', cardapioController.listarCardapio);
 
 // // ========== ROTAS DAS COMANDAS ==========
 // // GET /api/comandas - Retorna todas as comandas
-router.get('/comandas', comandasController.getComandas);
+// router.get('/comandas', comandasController.getComandas);
 
 // // POST /api/comandas - Cria uma nova comanda
 // router.post('/comandas', comandasController.createComanda);

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { getCardapio, createComanda } from './services/api'; // Importa nossas funções da API
+import { listarCardapio } from './services/api'; // Importa nossas funções da API
 import { PainelCozinha } from './components/PainelCozinha'; // Importa o Painel da Cozinha
 import './App.css'; // Vite inclui este CSS básico
+import { listarCardapio } from '../../backend/src/controllers/cardapio.controller';
 
 const quantidade = document.getElementsByClassName("quantNumber");
 
@@ -24,7 +25,7 @@ function App() {
     // Função interna para "chamar o garçom"
     const fetchCardapio = async () => {
       try {
-        const response = await getCardapio();
+        const response = await listarCardapio();
         console.log('✅ Front-end: "Cardápio recebido!"', response.data);
         
         // A resposta da API vem em response.data.dados (conforme nosso back-end)

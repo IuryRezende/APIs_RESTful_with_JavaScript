@@ -125,7 +125,7 @@ export function PainelCozinha({ refreshTrigger }) {
                 Status: <span className={`status status-${comanda.status.toLowerCase().replace(' ', '-')}`}>{comanda.status}</span>
               </p>
               <p className="cozinha-itens" style={{whiteSpace: "pre-line"}}>
-                📋 Itens: {"\n"} {console.log("assadasasfasfasfasfsfafasfsfafa", comanda.itens)}{comanda.status}
+                📋 Itens: {"\n"} {console.log("assadasasfasfasfasfsfafasfsfafa", Array.isArray(comanda[0]))}{comanda.status}
               </p>
               <p className="cozinha-total">
                 <strong>💰 Total: R$ {comanda.total}</strong>
