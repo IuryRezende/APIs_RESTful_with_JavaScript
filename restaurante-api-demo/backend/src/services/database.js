@@ -1,6 +1,6 @@
 const mysql = require("mysql2/promise");
 require("dotenv").config();
-const fs = require("fs");
+
 
 
 console.log(process.env.DB_HOST, process.env.DB_USER, process.env.DB_PASSWORD);
