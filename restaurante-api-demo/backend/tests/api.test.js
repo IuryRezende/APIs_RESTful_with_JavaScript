@@ -5,14 +5,14 @@
 
 const request = require('supertest');
 const app = require('../app'); // Importa sua aplicação Express
-const { resetComandas } = require('../src/services/database'); // Importa função para limpar dados
+// const { resetComandas } = require('../src/services/database'); // Importa função para limpar dados
 
-// HOOK GLOBAL
-// beforeAll pode ser usado para subir banco, etc.
-// beforeEach roda ANTES de cada 'it' ou 'test'.
-beforeEach(() => {
-  resetComandas(); // Zera o "banco de dados" na memória para evitar sujeira de um teste afetar outro
-});
+// // HOOK GLOBAL
+// // beforeAll pode ser usado para subir banco, etc.
+// // beforeEach roda ANTES de cada 'it' ou 'test'.
+// beforeEach(() => {
+//   resetComandas(); // Zera o "banco de dados" na memória para evitar sujeira de um teste afetar outro
+// });
 
 // ==================================================================
 // GRUPO 1: CARDÁPIO (Apenas Leitura)

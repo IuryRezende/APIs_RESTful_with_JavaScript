@@ -3,7 +3,7 @@ import { listarCardapio } from './services/api'; // Importa nossas funções da 
 import { PainelCozinha } from './components/PainelCozinha'; // Importa o Painel da Cozinha
 import './App.css'; // Vite inclui este CSS básico
 
-const quantidade = document.getElementsByClassName("quantNumber");
+
 
 function App() {
   // Estado para guardar os itens do cardápio
@@ -58,12 +58,6 @@ function App() {
     return comanda.reduce((total, item) => total + item.preco, 0);
   };
 
-  const addQuantidade = () => {
-      quantidade[0].innerText;
-  }
-  const subQuantidade = () => {
-      quantidade.innerText -= 1;
-  }
 
   // Função para ENVIAR o pedido para o back-end
   const handleFazerPedido = async () => {

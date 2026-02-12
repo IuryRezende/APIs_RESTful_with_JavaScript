@@ -2,21 +2,24 @@
 // // Este arquivo é como o "Chef de Pedidos" que recebe e gerencia os pedidos dos clientes
 
 
-// const db = require('../services/database');
+const db = require('../services/database');
 
-// const getComandas = async (req, res) => {
-//   try {
-//     const [rows] = await db.query('SELECT * FROM comandas'); 
+const getComandas = async (req, res) => {
+  try {
+    const [rows] = await db.query('SELECT * FROM comandas'); 
 
-//     res.json({
-//       sucesso: true,
-//       dados: rows
-//     });
-//   } catch (erro) {
-//     console.error(erro); // Log para ajudar no debug do Render
-//     res.status(500).json({ sucesso: false, mensagem: "Erro ao acessar o banco" });
-//   }
-// };
+    console.log("AQUIIIIII ROWS: " + rows);
+    console.log("AQUIIIIII TIPO DE ROWS: " + typeof(rows));
+
+    res.json({
+      sucesso: true,
+      dados: toString(rows)
+    });
+  } catch (erro) {
+    console.error(erro); // Log para ajudar no debug do Render
+    res.status(500).json({ sucesso: false, mensagem: "Erro ao acessar o banco" });
+  }
+};
 
 // // const { comandas } = require('../services/database');
 
