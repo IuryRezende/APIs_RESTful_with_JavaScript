@@ -62,7 +62,7 @@ const getMesas = async (req, res) => {
   try {
     const [rows] = await db.query('SELECT mesa FROM comandas ORDER BY mesa'); 
     console.log("Rows do getMesa: ", rows);
-    res.json({
+    res.status(200).json({
       sucesso: true,
       dados: rows
     });
@@ -78,7 +78,7 @@ const createComanda = async (req, res) => {
   try {
     // Extrai os dados enviados pelo cliente
     const { mesa, itens, total } = req.body;
-    console.log("Array de ID", itens);
+    console.log("Mesa recebida pelo req.body: ", mesa);
     const itensData = await fetchItensData(itens);
     console.log("Itens data aqui óoooooo: ", itensData);
 

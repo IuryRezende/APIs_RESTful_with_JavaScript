@@ -18,21 +18,23 @@ function App() {
   const [refreshPedidos, setRefreshPedidos] = useState(0);
 
 async function mesaDisponivel(){
-    const [rows] = await getMesas();
+    const response = await getMesas();
+    const dados = response.data.dados;
     const mesasOcupadas = [];
 
-    if (rows.length == 0){
+    if (dados.length == 0){
       return 1;
     }
 
-    for (let i = 0; i < rows.length; i++){
-      mesasOcupadas.push(rows[i].mesa);
+    for (let i = 0; i < dados.length; i++){
+      mesasOcupadas.push(dados[i].mesa);
     }
 
     let mesa = 1;
 
     while (true){
       for (const mesaOcupada of mesasOcupadas){
+        console.log("Mesa ocupada: ", mesaOcupada)
         if(mesa == mesaOcupada){
           mesa++;
         } else {
@@ -41,6 +43,7 @@ async function mesaDisponivel(){
       }
       break;
     }
+    console.log("Mesa escolhida: ", mesa);
     return mesa;
   };
 
@@ -91,7 +94,7 @@ async function mesaDisponivel(){
       return;
     }
     const dadosDoPedido = {
-      mesa: mesaDisponivel(),
+      mesa: await mesaDisponivel(),
       itens: comanda.map(item => item.id), // Envia só os IDs, como no back-end
       total: Number(calcularTotalComanda()),
     };
