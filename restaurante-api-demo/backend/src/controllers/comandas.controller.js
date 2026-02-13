@@ -104,6 +104,48 @@ const createComanda = async (req, res) => {
   }
 };
 
+const deleteComanda = async (req, res) =>{
+  const { id } = req.params;
+
+  try {
+
+    const [fields] = await db.query("DELETE FROM comandas WHERE id = ?", [id]);
+
+    res.status(200).json({
+      sucesso: true,
+      mensagem: "Comanda deletada com sucesso 🚀",
+      dados: fields
+    })
+    
+  } catch (error) {
+    console.log("Erro: ", erro);
+    res.status(400).json({
+      sucesso: false,
+      mensagem: "Erro ao deletar comanda",
+      dados: fields
+    })
+  }
+
+}
+
+const updateComandaStatus = async (req, res) => {
+  const { id, status } = req.params;
+
+  try {
+    const [fields] = await db.query("UPDATE comandas SET status = ? WHERE id = ?", [status, id]);
+
+    res.status(200).json({
+      sucesso: true,
+      mensagem: `Comanda n° ${id} atualizada com sucesso 🚀`
+    })
+  } catch (error) {
+    res.status(400).json({
+      sucesso: false,
+      mensagem: `Erro ao atualizar comanda n° ${id}`
+    })
+  }
+}
+
 
 // const { comandas } = require('../services/database');
 
@@ -280,5 +322,6 @@ const createComanda = async (req, res) => {
 module.exports = {
   getComandas,
   getMesas,
-  createComanda 
+  createComanda,
+  deleteComanda 
 };

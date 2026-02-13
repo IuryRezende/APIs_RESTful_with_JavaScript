@@ -1,5 +1,5 @@
 const mysql = require("mysql2/promise");
-require("dotenv").config();
+require("dotenv").config({path: "../.env"});
 
 
 
@@ -11,6 +11,10 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME,
     port: Number(process.env.DB_PORT),
     waitForConnections: true,
+    ssl: {
+        minVersion: "TLSv1.2",
+        rejectUnauthorized: true
+    },
     connectionLimit: 10
 });
 
