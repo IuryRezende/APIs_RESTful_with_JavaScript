@@ -106,7 +106,7 @@ async function mesaDisponivel(){
 
       console.log("Response: ", response);
       console.log('✅ Pedido enviado com sucesso!', response.data.mensagem);
-      alert(`✅ Pedido #${dados[0].id} enviado para a cozinha!`);
+      alert(`✅ Pedido #${dados.id} enviado para a cozinha!`);
       
       setComanda([]); // Limpa o carrinhos
 

@@ -18,7 +18,7 @@ export function PainelCozinha({ refreshTrigger }) {
         console.log('✅ Front-end: Pedidos recebidos!', response.data);
         
         // O back-end retorna { sucesso, mensagem, quantidade, dados }
-        const listaPedidos = response.data.dados || response.data;
+        const listaPedidos = response.data.dados;
         
         // Inverte a lista para mostrar os pedidos mais novos primeiro
         setComandas([...listaPedidos]); 
@@ -120,10 +120,10 @@ export function PainelCozinha({ refreshTrigger }) {
               <h3>Pedido #{comanda.id}</h3>
               <p className="cozinha-mesa">🪑 Mesa: {comanda.mesa}</p>
               <p className="cozinha-status">
-                Status: <span className={`status status-${comanda.status.toLowerCase().replace(' ', '-')}`}>{comanda.status}</span>
+                Status: <span className={`status status-${comanda.status.toLowerCase().replace('_', '-')}`}>{comanda.status.replace("_", " ")}</span>
               </p>
               <p className="cozinha-itens" style={{whiteSpace: "pre-line"}}>
-                📋 Itens: {"\n"}
+                📋 Itens: {"\n"}{console.log("Dados comanda: ", comanda)}
               </p>
               <p className="cozinha-total">
                 <strong>💰 Total: R$ {comanda.total}</strong>
@@ -144,23 +144,22 @@ export function PainelCozinha({ refreshTrigger }) {
                   </button>
                 )}
                 
-                {/* Botão "Concluído" (só aparece se status for "Em Preparo") */}
-                {comanda.status === 'Em Preparo' && (
+                {/* Botão "Pronto" (só aparece se status for "Em Preparo") */}
+                {comanda.status === 'em_preparo' && (
                   <button 
-                    className="btn-concluido"
-                    onClick={() => handleMudarStatus(comanda.id, 'Concluído')}
+                    className="btn-pronto"
+                    onClick={() => handleMudarStatus(comanda.id, 'Pronto')}
                   >
-                    Marcar "Concluído"
+                    Marcar "Pronto"
                   </button>
                 )}
                 
-                {/* Mensagem de Concluído (só aparece se status for "Concluído") */}
-                {comanda.status === 'Concluído' && (
+                {/* Mensagem de Pronto (só aparece se status for "Pronto") */}
+                {comanda.status === 'pronto' && (
                   <p className="status-concluido-msg">Pedido Finalizado!</p>
                 )}
                 
-                {/* Botão "Cancelar Pedido" (só aparece se status NÃO for "Concluído") */}
-                {comanda.status !== 'Concluído' && (
+                {(
                   <button 
                     className="btn-cancelar"
                     onClick={() => handleCancelarPedido(comanda.id)}

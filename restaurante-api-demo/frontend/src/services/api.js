@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+
+
 // Cria uma "instância" do axios com a URL base do nosso back-end
 // Isso facilita pois não precisamos repetir a URL completa em cada requisição
 const api = axios.create({
@@ -36,7 +38,7 @@ export const getComandas = () => {
 export const updateComandaStatus = (id, novoStatus) => {
   console.log(`Front-end: "Garçom, mudar pedido #${id} para ${novoStatus}!"`);
   // Faz o PATCH para /api/comandas/:id, enviando o novo status
-  return api.patch(`/comandas/${id}`, { status: novoStatus });
+  return api.patch(`/comandas/${id}/${novoStatus}`,);
 };
 
 // Função para DELETAR uma comanda

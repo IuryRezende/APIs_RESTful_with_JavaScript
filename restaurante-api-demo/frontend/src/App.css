@@ -455,13 +455,13 @@ body {
   border: 1px solid #3498db;
 }
 
-.status-concluído {
+.status-pronto {
   background-color: rgba(46, 204, 113, 0.3);
   color: #2ecc71;
   border: 1px solid #2ecc71;
 }
 
-.status-concluido-msg {
+.status-pronto-msg {
   color: #2ecc71;
   font-weight: bold;
   text-align: center;
