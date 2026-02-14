@@ -22,18 +22,22 @@ const getCardapioItem = async (req, res) => {
   try {
     const [rows] = await db.query("SELECT * FROM cardapio WHERE id = ?", [id]);
 
-    res.status(200).json({
-      sucesso: true,
-      mensagem: "Item buscado com sucesso",
-      dados: rows
-    })
+    if (typeof(rows[0]) != "undefined"){
+      res.status(200).json({
+        sucesso: true,
+        mensagem: "Item buscado com sucesso",
+        dados: rows[0]
+      })
+    } else {
+      throw new Error("A consulta não retornou nenhum item");
+    }
     
   } catch (error) {
     console.log("Error -> ", error);
     res.status(400).json({
       sucesso: false,
-      mensagem: "Erro ao buscar item",
-      dados: rows
+      mensagem: "Erro ao buscar item || id inválido",
+      dados: undefined
     })
   }
 

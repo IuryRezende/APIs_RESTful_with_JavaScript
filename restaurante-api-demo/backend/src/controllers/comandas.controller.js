@@ -2,12 +2,43 @@
 // // Este arquivo é como o "Chef de Pedidos" que recebe e gerencia os pedidos dos clientes
 
 
-const { response } = require('express');
+const { response, json } = require('express');
 const db = require('../services/connection');
 
+async function getLastIdItem() {
+  const [rows] = await db.query("SELECT COUNT(id) as 'quantItens' FROM cardapio");
+  console.log("Get last id item: ", rows[0]);
+
+  return rows[0].quantItens;
+}
+
+const totalValueIsCorrect = (itens, actualTotal) => {
+  let totalValue = 0;
+
+  itens.forEach(item => {
+    totalValue += item.subtotal;
+  });
+
+  if(actualTotal != totalValue){ 
+    return false;
+  }
+  return true;
+
+}
+
+const itensHasValidId = async (itensId) => {
+  const lastId = await getLastIdItem();
+  itensId.forEach(itemId => {
+    if(itemId <= 0 || itemId > lastId){ 
+      return false
+    } 
+  })
+  return true;
+}
 
 const fetchItensData = async (itens) => {
   try{
+  
     let itensData = [];
     let cont = 0;
 
@@ -81,21 +112,45 @@ const createComanda = async (req, res) => {
   try {
     // Extrai os dados enviados pelo cliente
     const { mesa, itens, total } = req.body;
+
+    const itensIsValid = await itensHasValidId(itens);
+
+    //Função  (itens possui valor negativo ou maior que indíce de item)
+    if(!itensIsValid){
+      res.status(400).json({
+        sucesso: false,
+        mensagem: "Id out of bounds"
+      })
+    };
+
     const itensData = await fetchItensData(itens);
+
+    if(!totalValueIsCorrect(itensData, total)){
+      res.status(400).json({
+        sucesso: false,
+        mensagem: "Total value is different to the sum of subtotal"
+      })
+    }
 
     const response = await db.query(
       "SELECT MAX(id) + 1 as 'lastId' FROM comandas");
     
     const count = response[0][0].lastId
 
-
+    console.log(`\n================== Começa aqui ==================\n
+      Count: ${count}\n 
+      Mesa: ${mesa}\n
+      Itens: ${itens}\n
+      TypeOfItens: ${typeof(itens)}
+      ItensData: ${JSON.stringify(itensData)}\n 
+      Total: ${total}\n
+    ====================== Finaliza aqui ======================\n`);
     await db.query("INSERT INTO comandas (id, mesa, itens, total) VALUES(?, ?, ?, ?)", 
       [count,mesa, JSON.stringify(itensData), total]);
 
     const [rows] = await db.query(
       "SELECT * FROM comandas WHERE mesa = ?", 
       [mesa]);
-
 
     res.status(201).json({
       sucesso: true,
@@ -105,10 +160,9 @@ const createComanda = async (req, res) => {
        
   }catch(error){
     console.log("Erro: ", error);
-    res.status(500).json({
+    res.status(400).json({
       sucesso: false,
-      mensagem: "Erro ao inserir comanda",
-      dados: rows
+      mensagem: "Erro ao inserir comanda " + error
     })
   }
 };
@@ -130,8 +184,7 @@ const deleteComanda = async (req, res) =>{
     console.log("Erro: ", erro);
     res.status(400).json({
       sucesso: false,
-      mensagem: "Erro ao deletar comanda",
-      dados: rows
+      mensagem: "Erro ao deletar comanda"
     })
   }
 
