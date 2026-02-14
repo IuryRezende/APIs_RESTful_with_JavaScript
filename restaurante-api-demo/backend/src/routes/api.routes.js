@@ -13,7 +13,7 @@ const comandasController = require('../controllers/comandas.controller');
 router.get('/cardapio', cardapioController.listarCardapio);
 
 // // GET /api/cardapio/:id - Retorna um item específico do cardápio
-// router.get('/cardapio/:id', cardapioController.getCardapioItem);
+router.get('/cardapio/:id', cardapioController.getCardapioItem);
 
 // // ========== ROTAS DAS COMANDAS ==========
 // // GET /api/comandas - Retorna todas as comandas
