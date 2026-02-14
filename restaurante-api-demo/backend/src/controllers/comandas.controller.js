@@ -29,7 +29,7 @@ const fetchItensData = async (itens) => {
           itensData.push({
             "id": row.id,
             "nome": row.nome, 
-            "quant": 1, 
+            "quantidade": 1, 
             "preco_unitario": row.preco, 
             "subtotal": row.preco
           });
@@ -137,8 +137,9 @@ const updateComandaStatus = async (req, res) => {
   console.log(`id: ${id}, status: ${status}`);
 
   try {
-    const [rows] = await db.query("UPDATE comandas SET status = ? WHERE id = ?", [status, id]);
-    console.log("Response do updateComandaStatus no controller: ", rows);
+    await db.query("UPDATE comandas SET status = ? WHERE id = ?", [status, id]);
+    
+    const [rows] = await db.query("SELECT * FROM comandas WHERE id = ?", [id]);
 
     res.status(200).json({
       sucesso: true,

@@ -508,12 +508,12 @@ body {
   background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
 }
 
-.btn-concluido {
+.btn-pronto {
   background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
   color: white;
 }
 
-.btn-concluido:hover {
+.btn-pronto:hover {
   background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
 }
 

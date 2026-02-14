@@ -43,7 +43,7 @@ export function PainelCozinha({ refreshTrigger }) {
       // Isso evita um novo 'GET' e atualiza a tela instantaneamente
       setComandas((comandasAnteriores) =>
         comandasAnteriores.map((comanda) =>
-          comanda.id === id ? response.data : comanda
+          comanda.id === id ? response.data.dados[0] : comanda
         )
       );
       
@@ -123,13 +123,13 @@ export function PainelCozinha({ refreshTrigger }) {
                 Status: <span className={`status status-${comanda.status.toLowerCase().replace('_', '-')}`}>{comanda.status.replace("_", " ")}</span>
               </p>
               <p className="cozinha-itens" style={{whiteSpace: "pre-line"}}>
-                📋 Itens: {"\n"}{console.log("Dados comanda: ", comanda)}
+                📋 Itens: {"\n"}{console.log("Dados comanda: ", comanda)}{comanda.itens.map(c => c.nome + " x" + c.quantidade).join("\n")}
               </p>
               <p className="cozinha-total">
                 <strong>💰 Total: R$ {comanda.total}</strong>
               </p>
               <p className="cozinha-data">
-                <small>🕐 Recebido: {new Date(comanda.dataPedido).toLocaleString('pt-BR')}</small>
+                <small>🕐 Recebido: {new Date(comanda.criado_em).toLocaleString('pt-BR')}</small>
               </p>
               
               {/* --- NOVOS BOTÕES DE AÇÃO --- */}
