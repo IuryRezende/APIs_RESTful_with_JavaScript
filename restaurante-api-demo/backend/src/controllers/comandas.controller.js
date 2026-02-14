@@ -18,8 +18,8 @@ const fetchItensData = async (itens) => {
 
       if(typeof(item) != "undefined"){
 
-        item.quant += 1;
-        item.subtotal = Number(item.quant) * Number(item.preco_unitario);
+        item.quantidade += 1;
+        item.subtotal = Number(item.quantidade) * Number(item.preco_unitario);
 
       } else {
         const [rows] = await db.query("SELECT id, nome, preco FROM cardapio WHERE id = ?", [itemID]);
@@ -57,7 +57,8 @@ const getComandas = async (req, res) => {
     console.error(erro); // Log para ajudar no debug do   Render
     res.status(500).json({
       sucesso: false, 
-      mensagem: "Erro ao acessar o banco" 
+      mensagem: "Erro ao acessar o banco",
+      dados: rows 
     });
   }
 };
@@ -65,31 +66,36 @@ const getComandas = async (req, res) => {
 const getMesas = async (req, res) => {
   try {
     const [rows] = await db.query('SELECT mesa FROM comandas ORDER BY mesa'); 
-    console.log("Rows do getMesa: ", rows);
     res.status(200).json({
       sucesso: true,
       dados: rows
     });
   } catch (erro) {
     console.error(erro); // Log para ajudar no debug do Render
-    res.status(500).json({ sucesso: false, mensagem: "Erro ao acessar o banco" });
+    res.status(500).json({ sucesso: false, mensagem: "Erro ao acessar o banco", dados: rows });
   }
 };
 
 
 const createComanda = async (req, res) => {
-  console.log("ENTROU NO CREATE COMANDA DO CONTROLLER.JS");
   try {
     // Extrai os dados enviados pelo cliente
     const { mesa, itens, total } = req.body;
     const itensData = await fetchItensData(itens);
 
-    await db.query("INSERT INTO comandas (mesa, itens, total) VALUES(?, ?, ?)", 
-      [mesa, JSON.stringify(itensData), total]);
+    const response = await db.query(
+      "SELECT MAX(id) + 1 as 'lastId' FROM comandas");
+    
+    const count = response[0][0].lastId
+
+
+    await db.query("INSERT INTO comandas (id, mesa, itens, total) VALUES(?, ?, ?, ?)", 
+      [count,mesa, JSON.stringify(itensData), total]);
 
     const [rows] = await db.query(
       "SELECT * FROM comandas WHERE mesa = ?", 
       [mesa]);
+
 
     res.status(201).json({
       sucesso: true,
@@ -101,7 +107,8 @@ const createComanda = async (req, res) => {
     console.log("Erro: ", error);
     res.status(500).json({
       sucesso: false,
-      mensagem: "Erro ao inserir comanda"
+      mensagem: "Erro ao inserir comanda",
+      dados: rows
     })
   }
 };
@@ -111,12 +118,12 @@ const deleteComanda = async (req, res) =>{
 
   try {
 
-    const [fields] = await db.query("DELETE FROM comandas WHERE id = ?", [id]);
+    const [rows] = await db.query("DELETE FROM comandas WHERE id = ?", [id]);
 
     res.status(200).json({
       sucesso: true,
       mensagem: "Comanda deletada com sucesso 🚀",
-      dados: fields
+      dados: rows
     })
     
   } catch (error) {
@@ -124,7 +131,7 @@ const deleteComanda = async (req, res) =>{
     res.status(400).json({
       sucesso: false,
       mensagem: "Erro ao deletar comanda",
-      dados: fields
+      dados: rows
     })
   }
 

@@ -211,6 +211,23 @@ body {
   color: #333;
 }
 
+/* Overlay de fundo escuro */
+.toast-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998; /* Abaixo do toast */
+  backdrop-filter: blur(3px);
+}
+
+/* Garantir que o toast fique acima */
+.Toastify__toast-container {
+  z-index: 9999 !important;
+}
+
 .btn-fazer-pedido {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: white;

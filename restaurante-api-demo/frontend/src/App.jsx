@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { listarCardapio, createComanda, getMesas} from './services/api'; // Importa nossas funções da API
 import { PainelCozinha } from './components/PainelCozinha'; // Importa o Painel da Cozinha
 import './App.css'; // Vite inclui este CSS básico
+import { notify } from './components/toast.jsx';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -90,7 +93,7 @@ async function mesaDisponivel(){
   // Função para ENVIAR o pedido para o back-end
   const handleFazerPedido = async () => {
     if (comanda.length === 0) {
-      alert('Sua comanda está vazia!');
+      notify(comanda.sucesso, 'Sua comanda está vazia!');
       return;
     }
     const dadosDoPedido = {
@@ -106,7 +109,7 @@ async function mesaDisponivel(){
 
       console.log("Response: ", response);
       console.log('✅ Pedido enviado com sucesso!', response.data.mensagem);
-      alert(`✅ Pedido #${dados.id} enviado para a cozinha!`);
+      notify(response.data.sucesso, `✅ Pedido #${dados.id} enviado para a cozinha!`);
       
       setComanda([]); // Limpa o carrinhos
 
@@ -115,7 +118,7 @@ async function mesaDisponivel(){
       
     } catch (err) {
       console.error('❌ Erro ao enviar pedido:', err);
-      alert('❌ Erro ao enviar pedido para a "Cozinha". Tente novamente.');
+      notify(response.data.sucesso, '❌ Erro ao enviar pedido para a "Cozinha". Tente novamente.');
     }
   };
 
@@ -145,6 +148,20 @@ async function mesaDisponivel(){
   // Se deu tudo certo:
   return (
     <div className="App">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        limit={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Slide}
+      />
       <h1>🍽️ Cardápio do Restaurante 🍽️</h1>
       <p className="subtitle">Bem-vindo! Confira nossos deliciosos pratos:</p>
       

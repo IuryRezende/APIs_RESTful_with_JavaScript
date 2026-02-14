@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getComandas, updateComandaStatus, deleteComanda } from '../services/api';
 import { getCardapioItem } from '../services/api';
+import { confirmToast, notify } from './toast.jsx';
 // Componente que exibe todos os pedidos feitos (Painel da Cozinha)
 // Recebe a prop 'refreshTrigger' para saber quando atualizar a lista
 export function PainelCozinha({ refreshTrigger }) {
@@ -48,17 +49,18 @@ export function PainelCozinha({ refreshTrigger }) {
       );
       
       console.log(`Status do Pedido #${id} atualizado para ${novoStatus}`);
+      notify(response.data.sucesso, `Status do Pedido #${id} atualizado para ${novoStatus}`);
     
     } catch (err) {
       console.error('Erro ao atualizar status:', err);
-      alert('Falha ao atualizar o status do pedido.');
+      notify(response.data.sucesso, `Erro ao atualizar status`);
     }
   };
 
   // Função para cancelar (deletar) um pedido
   const handleCancelarPedido = async (id) => {
     // Pede confirmação ao usuário antes de deletar
-    const confirmacao = window.confirm('Tem certeza que deseja cancelar este pedido?');
+    const confirmacao = await confirmToast("Tem certeza que deseja cancelar o pedido?");
     
     if (!confirmacao) {
       return; // Se o usuário cancelar, não faz nada
@@ -66,7 +68,7 @@ export function PainelCozinha({ refreshTrigger }) {
 
     try {
       // 1. Chama a API para deletar no back-end
-      await deleteComanda(id);
+      const response = await deleteComanda(id);
       
       // 2. Remove o pedido do estado local (UI)
       setComandas((comandasAnteriores) =>
@@ -74,10 +76,11 @@ export function PainelCozinha({ refreshTrigger }) {
       );
       
       console.log(`Pedido #${id} cancelado com sucesso!`);
+      notify(response.data.sucesso, `Pedido #${id} cancelado com sucesso!`)
     
     } catch (err) {
       console.error('Erro ao cancelar pedido:', err);
-      alert('Falha ao cancelar o pedido.');
+      notify(response.data.sucesso, `Erro ao cancelar pedido`);
     }
   };
 
@@ -123,7 +126,7 @@ export function PainelCozinha({ refreshTrigger }) {
                 Status: <span className={`status status-${comanda.status.toLowerCase().replace('_', '-')}`}>{comanda.status.replace("_", " ")}</span>
               </p>
               <p className="cozinha-itens" style={{whiteSpace: "pre-line"}}>
-                📋 Itens: {"\n"}{console.log("Dados comanda: ", comanda)}{comanda.itens.map(c => c.nome + " x" + c.quantidade).join("\n")}
+                📋 Itens: {"\n"}{comanda.itens.map(c => c.nome + " x" + c.quantidade).join("\n")}
               </p>
               <p className="cozinha-total">
                 <strong>💰 Total: R$ {comanda.total}</strong>
