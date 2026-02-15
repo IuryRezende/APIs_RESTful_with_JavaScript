@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+
+
 // Cria uma "instância" do axios com a URL base do nosso back-end
 // Isso facilita pois não precisamos repetir a URL completa em cada requisição
 const api = axios.create({
-  baseURL: 'https://apis-restful-with-javascript-52sy.onrender.com/api', // A porta do nosso back-end
+  baseURL: 'http://localhost:4000/api', // A porta do nosso back-end
 });
 
 // Função para buscar o cardápio completo
@@ -36,7 +38,7 @@ export const getComandas = () => {
 export const updateComandaStatus = (id, novoStatus) => {
   console.log(`Front-end: "Garçom, mudar pedido #${id} para ${novoStatus}!"`);
   // Faz o PATCH para /api/comandas/:id, enviando o novo status
-  return api.patch(`/comandas/${id}`, { status: novoStatus });
+  return api.patch(`/comandas/${id}/${novoStatus}`,);
 };
 
 // Função para DELETAR uma comanda
@@ -44,4 +46,10 @@ export const deleteComanda = (id) => {
   console.log(`Front-end: "Garçom, cancelar o pedido #${id}!"`);
   // Faz o DELETE para /api/comandas/:id
   return api.delete(`/comandas/${id}`);
+};
+
+export const getMesas = () => {
+  console.log(`Front-end: "Garçom, tragas as mesas disponíveis"`);
+  // Faz o DELETE para /api/comandas/:id
+  return api.get(`/comandas/mesas`);
 };

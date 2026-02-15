@@ -1,7 +1,7 @@
 // Controlador do Cardápio
 // Este arquivo é como o "Chef de Cozinha" que mostra o menu aos clientes
 
-const db = require('../services/database');
+const db = require('../services/connection');
 
 const listarCardapio = async (req, res) => {
   try {
@@ -16,6 +16,32 @@ const listarCardapio = async (req, res) => {
     res.status(500).json({ sucesso: false, mensagem: "Erro ao acessar o banco" });
   }
 };
+
+const getCardapioItem = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [rows] = await db.query("SELECT * FROM cardapio WHERE id = ?", [id]);
+
+    if (typeof(rows[0]) != "undefined"){
+      res.status(200).json({
+        sucesso: true,
+        mensagem: "Item buscado com sucesso",
+        dados: rows[0]
+      })
+    } else {
+      throw new Error("A consulta não retornou nenhum item");
+    }
+    
+  } catch (error) {
+    console.log("Error -> ", error);
+    res.status(400).json({
+      sucesso: false,
+      mensagem: "Erro ao buscar item || id inválido",
+      dados: undefined
+    })
+  }
+
+}
 
 // const { cardapio } = require('../services/database');
 
@@ -72,5 +98,6 @@ const listarCardapio = async (req, res) => {
 
 // // Exporta as funções para serem usadas nas rotas
 module.exports = {
-  listarCardapio
+  listarCardapio,
+  getCardapioItem
 };

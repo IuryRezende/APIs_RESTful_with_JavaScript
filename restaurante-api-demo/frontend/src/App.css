@@ -211,6 +211,23 @@ body {
   color: #333;
 }
 
+/* Overlay de fundo escuro */
+.toast-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998; /* Abaixo do toast */
+  backdrop-filter: blur(3px);
+}
+
+/* Garantir que o toast fique acima */
+.Toastify__toast-container {
+  z-index: 9999 !important;
+}
+
 .btn-fazer-pedido {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: white;
@@ -455,13 +472,13 @@ body {
   border: 1px solid #3498db;
 }
 
-.status-concluído {
+.status-pronto {
   background-color: rgba(46, 204, 113, 0.3);
   color: #2ecc71;
   border: 1px solid #2ecc71;
 }
 
-.status-concluido-msg {
+.status-pronto-msg {
   color: #2ecc71;
   font-weight: bold;
   text-align: center;
@@ -508,12 +525,12 @@ body {
   background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
 }
 
-.btn-concluido {
+.btn-pronto {
   background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
   color: white;
 }
 
-.btn-concluido:hover {
+.btn-pronto:hover {
   background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
 }
 

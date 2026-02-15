@@ -1,5 +1,5 @@
 
-const pool = require("./services/database");
+const pool = require("./services/connection");
 const seedCardapio = require("./database/seeds/seed_cardapio");
 const seedComanda = require("./database/seeds/seed_comanda");
 
