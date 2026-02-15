@@ -16,10 +16,10 @@ const totalValueIsCorrect = (itens, actualTotal) => {
   let totalValue = 0;
 
   itens.forEach(item => {
-    totalValue += item.subtotal;
+    totalValue += Number(item.subtotal);
   });
 
-  if(actualTotal != totalValue){ 
+  if(Number(actualTotal) != totalValue){ 
     return false;
   }
   return true;
