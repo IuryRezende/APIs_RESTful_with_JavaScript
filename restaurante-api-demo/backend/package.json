@@ -18,7 +18,11 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+<<<<<<< HEAD
     "dotenv": "^17.2.4",
+=======
+    "dotenv": "^17.3.0",
+>>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
     "express": "^4.18.2"
   },
   "devDependencies": {

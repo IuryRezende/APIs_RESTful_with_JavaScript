@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 const pool = require("./services/database");
+=======
+const pool = require("./services/connection");
+>>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
 const seedCardapio = require("./database/seeds/seed_cardapio");
 const seedComanda = require("./database/seeds/seed_comanda");
 
