@@ -1,4 +1,6 @@
+const { hash } = require("bcrypt");
 const db = require("../services/connection");
+const bcrypt = require("bcrypt");
 
 
 
@@ -23,9 +25,52 @@ const listarUsuarios = async (req, res) => {
     }
 }
 
+const verifyLogin = async(req, res) => {
+    const {email, senha} = req.params;
+
+
+
+    try {
+
+        const response = await db.query("SELECT * FROM usuarios WHERE email = ?", [email])
+
+        if(response.length == 0){
+            return res.status(401).json({
+                sucesso: false,
+                mensagem: "Email ou senha inválidos"
+            });
+        }
+
+        const usuario = response[0][0];
+
+
+        const senhaValida = await bcrypt.compare(senha, usuario.senha)
+
+        if (!senhaValida){
+            return res.status(401).json({
+                sucesso: false,
+                mensagem: "Email ou senha inválidos"
+            });
+        }
+
+        res.status(200).json({
+            sucesso: true,
+            mensagem: "Login efetuado com sucesso"
+        });
+    
+    } catch (error) {
+        console.log("Erro: ", error);
+        res.status(400).json({
+            sucesso: false,
+            mensagem: "Erro ao efetuar login, (erro) => " + error
+        })
+    }
+}
+
 
 
 
 module.exports = {
-    listarUsuarios
+    listarUsuarios,
+    verifyLogin
 };

@@ -1,59 +1,56 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../services/api"; // seu axios configurado
+// src/pages/Login.jsx
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { notify } from '../components/toast';
+import { verifyLogin } from '../services/api';
+
+async function validateLogin(email, senha){
+  const response = await verifyLogin(email, senha);
+
+  return response.data.sucesso;
+}
 
 function Login() {
+
   const [email, setEmail] = useState("");
+
   const [senha, setSenha] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+
+    setLoading(true);
     try {
-      const response = await api.post("/login", {
-        email,
-        senha,
-      });
+      if(email == "123@gmail.com" && senha == "1234"){
+        localStorage.setItem("token", "fake-jwt-token-12345");
 
-      console.log("Login realizado:", response.data.dados);
+        localStorage.setItem("user", JSON.stringify({
+          email: email,
+          nome: nome
+        }));
 
-      // Redireciona para a tela principal
-      navigate("/home");
-
+        navigate("/Home");
+      } else {
+        notify(false, "Email ou senha incorreto");
+      }
+      
+      
     } catch (error) {
-      console.error("Erro no login:", error);
-      alert("Email ou senha inválidos!");
+      
+    } finally {
+      setLoading(false);
     }
-  };
+  }
 
   return (
-    <div style={{ textAlign: "center", marginTop: "100px" }}>
-      <h2>Login</h2>
-
-      <form onSubmit={handleLogin}>
-        <div>
-          <input
-            type="email"
-            placeholder="Digite seu email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <input
-            type="password"
-            placeholder="Digite sua senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit">Entrar</button>
-      </form>
+    <div>
+      <h1>Login</h1>
     </div>
   );
 }

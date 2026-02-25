@@ -1,25 +1,25 @@
 const usuariosData = [
     { 
         nome: "Goku da Silva", 
-        email: "goku.silva@email.com",
+        email: "goku.silva@gmail.com",
         senha: "senha" 
     },
 
     { 
         nome: "Paulin Pinho",
-        email: "paulin.pinho@email.com",
+        email: "paulin.pinho@gmail.com",
         senha: "senha1" 
     },
 
     { 
         nome: "Luffymose",
-        email: "luffy.mose@email.com",
+        email: "luffy.mose@gmail.com",
         senha: "senha2" 
     },
 
     { 
         nome: "Naruto Rezende",
-        email: "naruto.rezende@email.com",
+        email: "naruto.rezende@gmail.com",
         senha: "senha3"
     },
     {  

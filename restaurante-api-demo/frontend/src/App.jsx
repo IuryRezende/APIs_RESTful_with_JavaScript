@@ -27,7 +27,7 @@ function App() {
 
 
 
-async function mesaDisponivel(){
+  async function mesaDisponivel(){
     const response = await getMesas();
     const dados = response.data.dados;
     const mesasOcupadas = [];
@@ -154,19 +154,19 @@ async function mesaDisponivel(){
   }
 
   //Style do Modal
-const styles = {
-  overlay: {
-    position: "fixed", top: 0, left: 0,
-    width: "100vw", height: "100vh",
-    backgroundColor: "rgba(0,0,0,0.5)", color: "rgba(0,0,0,0.8)",
-    display: "flex", alignItems: "center", justifyContent: "center",
-    zIndex: 999,
-  },
-  modal: {
-    background: "white", padding: "2rem", borderRadius: "8px",
-    minWidth: "300px", maxHeight: "80vh", overflowY: "auto",
-  },
-};
+  const styles = {
+    overlay: {
+      position: "fixed", top: 0, left: 0,
+      width: "100vw", height: "100vh",
+      backgroundColor: "rgba(0,0,0,0.5)", color: "rgba(0,0,0,0.8)",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      zIndex: 999,
+    },
+    modal: {
+      background: "white", padding: "2rem", borderRadius: "8px",
+      minWidth: "300px", maxHeight: "80vh", overflowY: "auto",
+    },
+  };
 
   // Se deu tudo certo:
   return (
