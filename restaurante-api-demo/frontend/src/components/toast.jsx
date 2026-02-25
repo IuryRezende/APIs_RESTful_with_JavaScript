@@ -6,7 +6,7 @@ export const notify = (success, mensagem) => {
     if (success){
         toast.success(mensagem, {
             position: "top-center",
-            autoClose: 1000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: false,
             pauseOnHover: true,
@@ -18,7 +18,7 @@ export const notify = (success, mensagem) => {
     } else {
         toast.error(mensagem, {
             position: "top-center",
-            autoClose: 1000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: false,
             pauseOnHover: true,

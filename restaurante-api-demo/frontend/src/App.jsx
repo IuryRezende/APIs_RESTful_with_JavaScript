@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { listarCardapio, createComanda, getMesas, listarUsuarios} from './services/api.js'; // Importa nossas funções da API
 import { PainelCozinha } from './components/PainelCozinha.jsx'; // Importa o Painel da Cozinha
 import './App.css'; // Vite inclui este CSS básico
@@ -113,6 +112,7 @@ async function mesaDisponivel(){
 
     try {
       const response = await createComanda(dadosDoPedido);
+      console.log("Response aqui óooooooo: ", response.data.dados[0]);
       const dados = response.data.dados[0];
 
       console.log("Response: ", response);
@@ -173,7 +173,7 @@ const styles = {
     <div className="App">
       <ToastContainer
         position="top-center"
-        autoClose={3000}
+        autoClose={2000}
         limit={1}
         hideProgressBar={false}
         newestOnTop={false}

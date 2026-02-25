@@ -109,6 +109,7 @@ const getMesas = async (req, res) => {
 
 
 const createComanda = async (req, res) => {
+  let retorno;
   try {
     // Extrai os dados enviados pelo cliente
     const { mesa, itens, total } = req.body;
@@ -152,6 +153,9 @@ const createComanda = async (req, res) => {
       "SELECT * FROM comandas WHERE mesa = ?", 
       [mesa]);
 
+    retorno = rows;
+
+
     res.status(201).json({
       sucesso: true,
       mensagem: "Comanda inserida com sucesso🚀",
@@ -164,6 +168,9 @@ const createComanda = async (req, res) => {
       sucesso: false,
       mensagem: "Erro ao inserir comanda " + error
     })
+    
+  } finally{
+    console.log("Retorno aqui óoooooo: ", retorno);
   }
 };
 
