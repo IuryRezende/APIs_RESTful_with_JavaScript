@@ -211,8 +211,6 @@ body {
   color: #333;
 }
 
-<<<<<<< HEAD
-=======
 /* Overlay de fundo escuro */
 .toast-backdrop {
   position: fixed;
@@ -230,7 +228,6 @@ body {
   z-index: 9999 !important;
 }
 
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
 .btn-fazer-pedido {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: white;
@@ -475,21 +472,13 @@ body {
   border: 1px solid #3498db;
 }
 
-<<<<<<< HEAD
-.status-concluído {
-=======
 .status-pronto {
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
   background-color: rgba(46, 204, 113, 0.3);
   color: #2ecc71;
   border: 1px solid #2ecc71;
 }
 
-<<<<<<< HEAD
-.status-concluido-msg {
-=======
 .status-pronto-msg {
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
   color: #2ecc71;
   font-weight: bold;
   text-align: center;
@@ -536,20 +525,12 @@ body {
   background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
 }
 
-<<<<<<< HEAD
-.btn-concluido {
-=======
 .btn-pronto {
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
   background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
   color: white;
 }
 
-<<<<<<< HEAD
-.btn-concluido:hover {
-=======
 .btn-pronto:hover {
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
   background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
 }
 
@@ -599,6 +580,14 @@ body {
     padding: 1.2em;
   }
 }
+
+
+
+#lista-users{
+  text-align: left;
+}
+
+
 
 
 

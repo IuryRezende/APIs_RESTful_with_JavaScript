@@ -13,12 +13,9 @@
     "axios": "^1.13.2",
     "cors": "^2.8.6",
     "react": "^19.2.0",
-<<<<<<< HEAD
-    "react-dom": "^19.2.0"
-=======
     "react-dom": "^19.2.0",
+    "react-router-dom": "^7.13.1",
     "react-toastify": "^11.0.5"
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

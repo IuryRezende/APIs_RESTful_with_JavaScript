@@ -4,9 +4,9 @@ const db = require("../services/connection");
 
 const listarUsuarios = async (req, res) => {
     try{
-        const [rows] = await db.query("SELECT nome, email FROM usuarios");
+        const [rows] = await db.query("SELECT id, nome, email FROM usuarios ORDER BY nome");
 
-        res.status(201).json({
+        res.status(200).json({
             sucesso: true,
             mensagem: "Usuários resgatados com sucesso",
             dados: rows

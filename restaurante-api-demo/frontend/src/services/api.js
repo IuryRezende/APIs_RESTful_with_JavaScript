@@ -2,8 +2,10 @@ import axios from 'axios';
 
 // Cria uma "instância" do axios com a URL base do nosso back-end
 // Isso facilita pois não precisamos repetir a URL completa em cada requisição
+// URL render : https://apis-restful-with-javascript-52sy.onrender.com/api
+// URL localhost : https://localhost:4000/api
 const api = axios.create({
-  baseURL: 'https://apis-restful-with-javascript-52sy.onrender.com/api', // A porta do nosso back-end
+  baseURL: 'http://localhost:4000/api', // A porta do nosso back-end
 });
 
 // Função para buscar o cardápio completo
@@ -51,3 +53,8 @@ export const getMesas = () => {
   // Faz o DELETE para /api/comandas/:id
   return api.get(`/comandas/mesas`);
 };
+
+export const listarUsuarios = () => {
+  console.log(`Front-end: "NTI, me liste os usuários disponíveis"`);
+  return api.get("/usuarios");
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { listarCardapio, createComanda, getMesas} from './services/api'; // Importa nossas funções da API
-import { PainelCozinha } from './components/PainelCozinha'; // Importa o Painel da Cozinha
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { listarCardapio, createComanda, getMesas, listarUsuarios} from './services/api.js'; // Importa nossas funções da API
+import { PainelCozinha } from './components/PainelCozinha.jsx'; // Importa o Painel da Cozinha
 import './App.css'; // Vite inclui este CSS básico
 import { notify } from './components/toast.jsx';
 import { ToastContainer, Slide } from 'react-toastify';
@@ -11,6 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   // Estado para guardar os itens do cardápio
   const [cardapio, setCardapio] = useState([]);
+
+  const [modalAberto, setModalAberto] = useState(false);
+
+  const [usuarios, setUsuarios] = useState([]);
   // Estado para gerenciar o status de carregamento
   const [loading, setLoading] = useState(true);
   // Estado para erros
@@ -19,6 +24,9 @@ function App() {
   const [comanda, setComanda] = useState([]);
   // Estado para controlar atualização do Painel da Cozinha (gatilho)
   const [refreshPedidos, setRefreshPedidos] = useState(0);
+
+
+
 
 async function mesaDisponivel(){
     const response = await getMesas();
@@ -145,6 +153,21 @@ async function mesaDisponivel(){
     );
   }
 
+  //Style do Modal
+const styles = {
+  overlay: {
+    position: "fixed", top: 0, left: 0,
+    width: "100vw", height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.5)", color: "rgba(0,0,0,0.8)",
+    display: "flex", alignItems: "center", justifyContent: "center",
+    zIndex: 999,
+  },
+  modal: {
+    background: "white", padding: "2rem", borderRadius: "8px",
+    minWidth: "300px", maxHeight: "80vh", overflowY: "auto",
+  },
+};
+
   // Se deu tudo certo:
   return (
     <div className="App">
@@ -162,6 +185,30 @@ async function mesaDisponivel(){
         theme="colored"
         transition={Slide}
       />
+      
+      <button onClick={async () => {
+        const rows = await listarUsuarios();
+        setUsuarios(rows);
+        setModalAberto(true);
+      }}>Listar usuários</button>
+      {/* Modal */}
+      {modalAberto && (
+        <div style={styles.overlay} onClick={() => setModalAberto(false)}>
+          <div  style={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <h2>Usuários</h2>
+            <ul>
+              
+              {usuarios.data.dados.map((u) => (
+                <li id="lista-users" key={u.id}>
+                  <strong>{u.nome}</strong> — {u.email}
+                </li>
+              ))}
+            </ul>
+            <button onClick={() => setModalAberto(false)}>Fechar</button>
+          </div>
+        </div>
+      )}
+
       <h1>🍽️ Cardápio do Restaurante 🍽️</h1>
       <p className="subtitle">Bem-vindo! Confira nossos deliciosos pratos:</p>
       

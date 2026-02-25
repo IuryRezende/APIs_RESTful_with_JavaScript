@@ -21,7 +21,13 @@ const usuariosData = [
         nome: "Naruto Rezende",
         email: "naruto.rezende@email.com",
         senha: "senha3"
+    },
+    {  
+        nome: "Celso Mussoumano",
+        email: "celso.mussoumano@gmail.com",
+        senha: "senha4"
     }  
+
 ];
 
 
