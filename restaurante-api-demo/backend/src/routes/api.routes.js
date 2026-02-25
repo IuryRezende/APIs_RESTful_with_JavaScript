@@ -45,7 +45,7 @@ router.delete('/comandas/:id', comandasController.deleteComanda);//testado
 
 //                  ROTAS USUÁRIO 
 // GET /api/usuarios - lista todos os usuários
-router.get("/usuarios", usuariosController.getUsuarios); 
+router.get("/usuarios", usuariosController.listarUsuarios); 
 
 // // Exporta o router para ser usado no server.js
 module.exports = router;

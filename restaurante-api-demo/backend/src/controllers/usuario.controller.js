@@ -2,7 +2,7 @@ const db = require("../services/connection");
 
 
 
-const getUsuarios = async (req, res) => {
+const listarUsuarios = async (req, res) => {
     try{
         const [rows] = await db.query("SELECT nome, email FROM usuarios");
 
@@ -27,5 +27,5 @@ const getUsuarios = async (req, res) => {
 
 
 module.exports = {
-    getUsuarios
+    listarUsuarios
 };
