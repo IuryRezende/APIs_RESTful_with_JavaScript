@@ -1,11 +1,8 @@
 
-<<<<<<< HEAD
-const pool = require("./services/database");
-=======
 const pool = require("./services/connection");
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
 const seedCardapio = require("./database/seeds/seed_cardapio");
 const seedComanda = require("./database/seeds/seed_comanda");
+const seedUsuario = require("./database/seeds/seed_usuario");
 
 async function runSeeders() {
 
@@ -20,6 +17,7 @@ async function runSeeders() {
 
         await seedCardapio(connection);
         await seedComanda(connection);
+        await seedUsuario(connection);
 
         console.log("Fazendo commit");
         connection.query("COMMIT");

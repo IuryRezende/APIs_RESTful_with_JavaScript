@@ -1,11 +1,7 @@
 // Controlador do Cardápio
 // Este arquivo é como o "Chef de Cozinha" que mostra o menu aos clientes
 
-<<<<<<< HEAD
-const db = require('../services/database');
-=======
 const db = require('../services/connection');
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
 
 const listarCardapio = async (req, res) => {
   try {
@@ -21,8 +17,6 @@ const listarCardapio = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-=======
 const getCardapioItem = async (req, res) => {
   const { id } = req.params;
   try {
@@ -49,7 +43,6 @@ const getCardapioItem = async (req, res) => {
 
 }
 
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
 // const { cardapio } = require('../services/database');
 
 // // Função que retorna todo o cardápio
@@ -105,10 +98,6 @@ const getCardapioItem = async (req, res) => {
 
 // // Exporta as funções para serem usadas nas rotas
 module.exports = {
-<<<<<<< HEAD
-  listarCardapio
-=======
   listarCardapio,
   getCardapioItem
->>>>>>> 3e4bce8e06fd0f26927295f15ede41ae4088486a
 };

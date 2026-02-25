@@ -13,7 +13,7 @@ async function seedComanda(connection) {
                 , [comanda.mesa, comanda.status, JSON.stringify(comanda.itens), comanda.total]);
         }
 
-        console.log("Seed do cardápio concluída");
+        console.log("Seed da comanda concluída");
     } catch (e){
         console.log("Erro ao rodar seed: ", e);
     } 

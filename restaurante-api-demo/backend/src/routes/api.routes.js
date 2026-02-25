@@ -7,6 +7,7 @@ const router = express.Router();
 // Importa os controladores
 const cardapioController = require('../controllers/cardapio.controller');
 const comandasController = require('../controllers/comandas.controller');
+const usuariosController = require('../controllers/usuario.controller');
 
 /*Para testes postman:
 Estrutura para método post in comanda
@@ -40,6 +41,11 @@ router.patch('/comandas/:id/:novoStatus', comandasController.updateComandaStatus
 
 // // DELETE /api/comandas/:id - Deleta uma comanda
 router.delete('/comandas/:id', comandasController.deleteComanda);//testado
+
+
+//                  ROTAS USUÁRIO 
+// GET /api/usuarios - lista todos os usuários
+router.get("/usuarios", usuariosController.getUsuarios); 
 
 // // Exporta o router para ser usado no server.js
 module.exports = router;
