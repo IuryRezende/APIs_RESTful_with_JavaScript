@@ -1,4 +1,4 @@
-const { hash } = require("bcrypt");
+
 const db = require("../services/connection");
 const bcrypt = require("bcrypt");
 
@@ -55,7 +55,14 @@ const verifyLogin = async(req, res) => {
 
         res.status(200).json({
             sucesso: true,
-            mensagem: "Login efetuado com sucesso"
+            mensagem: "Login efetuado com sucesso",
+            dados: {
+                "id": usuario.id,
+                "nome": usuario.nome,
+                "email": usuario.email,
+                "perfil": usuario.perfil
+            }
+
         });
     
     } catch (error) {

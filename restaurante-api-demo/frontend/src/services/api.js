@@ -60,5 +60,5 @@ export const listarUsuarios = () => {
 }
 
 export const verifyLogin = (email, senha) => {
-  return api.get(`/login/${email}/${senha}`);
+  return api.get(`/usuarios/login/${email}/${senha}`);
 }

@@ -1,4 +1,9 @@
 const usuariosData = [
+    {
+        nome: "admin",
+        email: "admin@admin.com",
+        senha: "admin"
+    },
     { 
         nome: "Goku da Silva", 
         email: "goku.silva@gmail.com",
