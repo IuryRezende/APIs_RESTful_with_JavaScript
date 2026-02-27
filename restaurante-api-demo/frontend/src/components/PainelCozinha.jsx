@@ -48,8 +48,7 @@ export function PainelCozinha({ refreshTrigger }) {
         )
       );
       
-      console.log(`Status do Pedido #${id} atualizado para ${novoStatus}`);
-      notify(response.data.sucesso, `Status do Pedido #${id} atualizado para ${novoStatus}`);
+      notify(response.data.sucesso, `Pedido #${id} atualizado para ${novoStatus}`);
     
     } catch (err) {
       console.error('Erro ao atualizar status:', err);

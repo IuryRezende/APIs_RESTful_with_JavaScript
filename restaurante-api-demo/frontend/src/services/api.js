@@ -53,3 +53,12 @@ export const getMesas = () => {
   // Faz o DELETE para /api/comandas/:id
   return api.get(`/comandas/mesas`);
 };
+
+export const listarUsuarios = () => {
+  console.log(`Front-end: "NTI, me liste os usuários disponíveis"`);
+  return api.get("/usuarios");
+}
+
+export const verifyLogin = (email, senha) => {
+  return api.get(`/usuarios/login/${email}/${senha}`);
+}
