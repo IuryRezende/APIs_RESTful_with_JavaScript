@@ -5,9 +5,9 @@
 const app = require('./app');
 
 const SERVER_PORT = 4000 || 3000;
-// ========== INICIA O SERVIDOR ==========
+
 app.listen(SERVER_PORT, "0.0.0.0", () => {
-  console.log(`🚀 Servidor rodando em https://apis-restful-with-javascript-52sy.onrender.com/api`);
-  console.log(`📋 Cardápio disponível em https://apis-restful-with-javascript-52sy.onrender.com/api/cardapio`);
-  console.log(`📝 Comandas disponíveis em https://apis-restful-with-javascript-52sy.onrender.com/api/comandas`);
+  console.log(`🚀 Servidor rodando em https://apis-restful-with-javascript-acna.onrender.com/api`);
+  console.log(`📋 Cardápio disponível em https://apis-restful-with-javascript-acna.onrender.com/api/cardapio`);
+  console.log(`📝 Comandas disponíveis em https://apis-restful-with-javascript-acna.onrender.com/api/comandas`);
 });
